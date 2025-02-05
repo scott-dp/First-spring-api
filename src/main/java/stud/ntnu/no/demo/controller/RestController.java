@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import stud.ntnu.no.demo.model.User;
 import stud.ntnu.no.demo.model.UserRegister;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +28,18 @@ public class RestController {
   }
 
   @PostMapping("/users")
-  public User createUser(@RequestBody User user) { //Spør om body i http posten
+  public User createUser(@RequestBody User user) {
     users.addNewUser(user);
     return user;
+  }
+
+  @DeleteMapping("/users/{id}")
+  public ResponseEntity<User> deleteUser(@PathVariable int id) {
+    Optional<User> optionalUser = users.deleteUserById(id);
+
+    if (optionalUser.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(optionalUser.get());
   }
 }

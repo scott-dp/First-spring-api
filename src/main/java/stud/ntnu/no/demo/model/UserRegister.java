@@ -26,6 +26,20 @@ public class UserRegister {
     addNewUser(newUser);
   }
 
+  /**
+   * deletes user with the given id
+   *
+   * @param id the id of the user wanted to be deleted
+   * @return returns an empty optional if the user was not found, an optional with the deleted user is return if the user was found
+   */
+  public Optional<User> deleteUserById(int id) {
+    Optional<User> optionalUser = getUserFromId(id);
+    if (!optionalUser.isEmpty()) {
+      users.remove(optionalUser.get());
+    }
+    return optionalUser;
+  }
+
   public Optional<User> getUserFromId(int id) {
     Optional<User> optionalUser = Optional.empty();
     for (User user : users) {
