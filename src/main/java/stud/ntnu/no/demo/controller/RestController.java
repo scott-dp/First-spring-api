@@ -19,6 +19,7 @@ public class RestController {
       return ResponseEntity.notFound().build();
     }
     users.setNewUserData(optionalUser.get(), newUserObject);
+    optionalUser.get().setId(id);
     return ResponseEntity.ok(newUserObject);
   }
 
